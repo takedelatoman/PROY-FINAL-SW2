@@ -154,10 +154,9 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Redes sociales</h4>
             <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-whatsapp"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-gmail"></i></a>
-
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://wa.me/59171661288" class="twitter"><i class="bx bxl-whatsapp"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-gmail"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
           </div>
 

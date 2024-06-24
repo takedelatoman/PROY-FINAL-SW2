@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SepoliaTransactionsController;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ContactController;
+
 
 
 
@@ -24,9 +27,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::get('/transactions', [TransactionController::class, 'index']);
 
 
+Route::get('/descargar/app-release.apk', function () {
+    $nombreArchivo = 'app-release.apk';
+
+    $rutaArchivo = storage_path('app/public/' . $nombreArchivo);
+
+    if (!Storage::exists('public/' . $nombreArchivo)) {
+        abort(404);
+    }
+
+    return response()->download($rutaArchivo);
+});
 
 
 
@@ -37,5 +50,10 @@ Route::get('/transactions/form', function () {
 
 // Ruta para manejar la solicitud del formulario y mostrar las transacciones
 Route::post('/transactions/fetch', [SepoliaTransactionsController::class, 'fetchTransactions'])->name('transactions.fetch');
+
+Route::get('/contact', function () {
+    return view('welcome');
+})->name('contact.show');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 require __DIR__.'/auth.php';

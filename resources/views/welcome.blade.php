@@ -9,6 +9,9 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+<!-- Código de instalación Cliengo para vescan-dev.com --> <script type="text/javascript">(function () { var ldk = document.createElement('script'); ldk.type = 'text/javascript'; ldk.async = true; ldk.src = 'https://s.cliengo.com/weboptimizer/667648e6cc87b214d625ebff/66764aaccc87b214d625ec44.js?platform=onboarding_modular'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ldk, s); })();</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -184,70 +187,105 @@
       </div>
     </section><!-- End Pricing Section -->
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
+
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Contacto</h2>
+            <h2>Contacto</h2>
         </div>
 
         <div class="row">
 
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="col-lg-6 info">
-                <i class="bx bx-map"></i>
-                <h4>Dirección</h4>
-                <p>Av Busch Nº1221,<br>Santa Cruz, Bolivia</p>
-              </div>
-              <div class="col-lg-6 info">
-                <i class="bx bx-phone"></i>
-                <h4>Teléfonos</h4>
-                <p>+591 77000077<br>+591 77111177</p>
-              </div>
-              <div class="col-lg-6 info">
-                <i class="bx bx-envelope"></i>
-                <h4>Correos</h4>
-                <p>contacto@v-dev.com<br>info@v-dev.com</p>
-              </div>
-              <div class="col-lg-6 info">
-                <i class="bx bx-time-five"></i>
-                <h4>Horarios</h4>
-                <p>Lun - Vi: 09:00 - 18:00<br>Sábado: 09:00 - 13:00</p>
-              </div>
+            <!-- Información de contacto -->
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-6 info">
+                        <i class="bx bx-map"></i>
+                        <h4>Dirección</h4>
+                        <p>Av Busch Nº1221,<br>Santa Cruz, Bolivia</p>
+                    </div>
+                    <div class="col-lg-6 info">
+                        <i class="bx bx-phone"></i>
+                        <h4>Teléfonos</h4>
+                        <p>+591 77000077<br>+591 77111177</p>
+                    </div>
+                    <div class="col-lg-6 info">
+                        <i class="bx bx-envelope"></i>
+                        <h4>Correos</h4>
+                        <p>contacto@v-dev.com<br>info@v-dev.com</p>
+                    </div>
+                    <div class="col-lg-6 info">
+                        <i class="bx bx-time-five"></i>
+                        <h4>Horarios</h4>
+                        <p>Lun - Vi: 09:00 - 18:00<br>Sábado: 09:00 - 13:00</p>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form" data-aos="fade-up">
-              <div class="form-group">
-                <input placeholder="Nombre completo" type="text" name="name" class="form-control" id="name" required>
-              </div>
-              <div class="form-group mt-3">
-                <input placeholder="Correo electrónico" type="email" class="form-control" name="email" id="email" required>
-              </div>
-              <div class="form-group mt-3">
-                <input placeholder="Asunto" type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea placeholder="Mensaje" class="form-control" name="message" rows="5" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Enviar</button></div>
-            </form>
-          </div>
-
+            <div class="col-lg-6 mx-auto">
+    <form action="{{ route('contact.send') }}" method="POST" class="php-email-form" data-aos="fade-up" id="contact-form">
+        @csrf
+        <div class="form-group">
+            <input placeholder="Nombre completo" type="text" name="name" class="form-control" id="name" value="{{ old('name') }}" required>
+        </div>
+        <div class="form-group mt-3">
+            <input placeholder="Correo electrónico" type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
+        </div>
+        <div class="form-group mt-3">
+            <input placeholder="Asunto" type="text" class="form-control" name="subject" id="subject" value="{{ old('subject') }}" required>
+        </div>
+        <div class="form-group mt-3">
+            <textarea placeholder="Mensaje" class="form-control" name="message" rows="5" required>{{ old('message') }}</textarea>
         </div>
 
-      </div>
-    </section><!-- End Contact Section -->
+        <!-- Campo de reCAPTCHA centrado -->
+        <div class="form-group mt-3 text-center">
+            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+            @error('g-recaptcha-response')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Manejo de errores y éxito -->
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success mt-3">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Botón de enviar -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </div>
+    </form>
+</div>
+
+
+        </div> <!-- row -->
+
+    </div> <!-- container -->
+</section>
+
+
+
 
   </main><!-- End #main --><style>
+    .g-recaptcha {
+    margin: 0 auto; /* Centra horizontalmente */
+    max-width: 300px; /* Define un ancho máximo */
+}
+
         /* Estilos para el formulario dentro de la sección de Transferencias */
         .footer-newsletter form input[type="text"],
         .footer-newsletter form input[type="email"] {
@@ -332,12 +370,12 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Redes sociales</h4>
             <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-whatsapp"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-gmail"></i></a>
-
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://wa.me/59171661288" class="twitter"><i class="bx bxl-whatsapp"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-gmail"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
           </div>
+
 
         </div>
       </div>
@@ -358,7 +396,7 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!--<script src="assets/vendor/php-email-form/validate.js"></script>-->
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
