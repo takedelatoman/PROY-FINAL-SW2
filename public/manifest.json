@@ -1,0 +1,22 @@
+{
+    "name": "V-DEV SOLUCIONES",
+    "short_name": "V-DEV",
+    "start_url": "http://127.0.0.1:8000/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000", 
+    "description": "Transformando ideas en soluciones digitales",
+    "icons": [
+      {
+        "src": "/assets/img/logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/assets/img/logo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

@@ -12,6 +12,9 @@
 <!-- Código de instalación Cliengo para vescan-dev.com --> <script type="text/javascript">(function () { var ldk = document.createElement('script'); ldk.type = 'text/javascript'; ldk.async = true; ldk.src = 'https://s.cliengo.com/weboptimizer/667648e6cc87b214d625ebff/66764aaccc87b214d625ec44.js?platform=onboarding_modular'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ldk, s); })();</script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+<link rel="manifest" href="/manifest.json">
+
+
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -400,6 +403,18 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(reg => console.log('Service Worker: Registrado', reg))
+        .catch(err => console.log('Service Worker: Error', err));
+    });
+  }
+</script>
+
 
 </body>
 
